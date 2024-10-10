@@ -34,29 +34,6 @@ This is a simple Tic Tac Toe game built with React. The game allows two players 
 - The game features a vibrant color scheme with a gradient background using SCSS variables for easy theming.
 - The game board and cells are styled for visual appeal, with hover effects to enhance the user experience.
 
-## Getting Started
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone [repository-url]
-   ```
-
-2. Navigate to the project directory:
-   ```bash
-   cd tic-tac-toe
-   ```
-
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-4. Start the development server:
-   ```bash
-   npm start
-   ```
 
 ### Usage
 
