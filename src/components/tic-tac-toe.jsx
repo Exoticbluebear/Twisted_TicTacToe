@@ -22,7 +22,7 @@ function Tictactoe() {
                 onClick={() => handleClick(index)} // Handle click to mark X or O
                 disabled={b !== null} // Disable if the cell is already marked
               >
-                {b} {/* Display the content of the cell */}
+                {"!"} {/* Display the content of the cell */} 
               </button>
             );
           })}
