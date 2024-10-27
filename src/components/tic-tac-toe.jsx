@@ -35,7 +35,7 @@ function Tictactoe() {
 
         {/* Button to reset the game */}
         <button className="reset-button" onClick={resetGame}>
-          RESET GAME
+          RESET GAME!
         </button>
       </div>
 
