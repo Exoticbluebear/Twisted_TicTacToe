@@ -1,26 +1,38 @@
 import { useState } from "react";
-import useTicTacToe from "../hooks/use-tic-tac-toe.jsx";
+import useTicTacToe from "../hooks/use-tic-tac-toe";
 
-function Tictactoe() {
-  const [boardSize, setBoardSize] = useState(3); // State to manage the size of the board
-  const { board, handleClick, getStatusMessage, resetGame, winningPattern } = useTicTacToe(); // Destructure the hook
+const Tictactoe: React.FC = () => {
+  const [boardSize, setBoardSize] = useState<number>(3); 
+  const {board, handleClick, getStatusMessage, resetGame, winningPattern,} = useTicTacToe() as {
+    board: (string | null)[];
+    handleClick: (index: number) => void;
+    getStatusMessage: () => string;
+    resetGame: () => void;
+    winningPattern: number[] | null;
+  };
 
   return (
     <>
       <div className="game">
-        {/* Display the current status message (winner, turn, or draw) */}
         <div className="status">{getStatusMessage()}</div>
-
-        <div className="board" style={{ display: 'grid', gridTemplateColumns: `repeat(${boardSize}, 1fr)` }}>
-          {/* Render each cell of the board */}
+        <div
+          className="board"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: `repeat(${boardSize}, 1fr)`,
+          }}
+        >
           {board.map((cell, index) => (
             <button
-              className="cell" // CSS class for styling
-              key={index} // Unique key for each cell
-              onClick={() => handleClick(index)} // Handle click to mark X or O
-              disabled={cell !== null} // Disable if the cell is already marked
+              className="cell"
+              key={index}
+              onClick={() => handleClick(index)}
+              disabled={cell !== null}
               style={{
-                backgroundColor: winningPattern && winningPattern.includes(index) ? 'transparent' : 'initial',
+                backgroundColor:
+                  winningPattern && winningPattern.includes(index)
+                    ? 'transparent'
+                    : 'initial',
                 width: '60px',
                 height: '60px',
                 fontSize: '24px',
@@ -28,21 +40,19 @@ function Tictactoe() {
                 border: '1px solid black',
               }}
             >
-              {cell} {/* Display the content of the cell */}
+              {cell}
             </button>
           ))}
         </div>
 
-        {/* Button to reset the game */}
         <button className="reset-button" onClick={resetGame}>
           RESET GAME!
         </button>
       </div>
 
-      {/* Uncomment the line below to add a button for instructions or help */}
       {/* <button className="learnMore">?</button> */}
     </>
   );
-}
+};
 
 export default Tictactoe;
