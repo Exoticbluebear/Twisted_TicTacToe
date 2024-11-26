@@ -5,7 +5,8 @@ const initialBoard = () => Array(9).fill(null);
 
 const useTicTacToe = () => {
   const [board, setboard] = useState(initialBoard()); // State for the game board
-  const [isXNext, setIsXNest] = useState(true); // State to track whose turn it is
+  const [isXNext, setIsXNext] = useState(true); // State to track whose turn it is
+  const [winningCells, setWinningCells] = useState([]);
 
   // Winning patterns for the game
   const WINNING_PATTERNS = [
@@ -21,33 +22,39 @@ const useTicTacToe = () => {
 
   // Function to calculate the winner based on the current board
   const calculateWinner = (currentBoard) => {
-    for (let i = 0; i < WINNING_PATTERNS.length; i++) {
-      const [a, b, c] = WINNING_PATTERNS[i];
+    for (let pattern of WINNING_PATTERNS) {
+      const [a, b, c] = pattern;
       if (
         currentBoard[a] &&
         currentBoard[a] === currentBoard[b] &&
         currentBoard[a] === currentBoard[c]
       ) {
-        return currentBoard[a]; // Return the winner (X or O)
+        return { winner: currentBoard[a], pattern }; // Return the winner (X or O)
       }
     }
-    return null; // No winner
+    return { winner: null, pattern: [] }; // No winner
   };
 
   // Function to handle cell clicks
   const handleClick = (index) => {
-    const winner = calculateWinner(board);
+    const { winner } = calculateWinner(board);
     if (winner || board[index]) return; // Ignore if there's a winner or the cell is occupied
 
     const newBoard = [...board]; // Copy the current board
     newBoard[index] = isXNext ? "X" : "O"; // Update the clicked cell
     setboard(newBoard); // Set the new board state
-    setIsXNest(!isXNext); // Switch turns
+
+    const { winner: newWinner, pattern } = calculateWinner(newBoard); // Recalculate winner
+    if (newWinner) {
+      setWinningCells(pattern); // Update winning cells if there's a winner
+    }
+
+    setIsXNext(!isXNext); // Switch turns
   };
 
   // Function to get the status message to display
   const getStatusMessage = () => {
-    const winner = calculateWinner(board);
+    const { winner } = calculateWinner(board);
     if (winner)
       return (
         <span style={{ color: "black", fontWeight: "bold" }}>
@@ -70,10 +77,18 @@ const useTicTacToe = () => {
   // Function to reset the game
   const resetGame = () => {
     setboard(initialBoard()); // Reset the board
-    setIsXNest(true); // Set X to start again
+    setIsXNext(true); // Set X to start again
+    setWinningCells([]); // Clear winning cells
   };
 
-  return { board, handleClick, calculateWinner, getStatusMessage, resetGame };
+  return {
+    board,
+    handleClick,
+    calculateWinner,
+    getStatusMessage,
+    resetGame,
+    winningCells,
+  };
 };
 
 export default useTicTacToe;

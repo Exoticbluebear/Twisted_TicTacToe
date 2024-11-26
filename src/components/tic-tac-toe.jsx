@@ -3,8 +3,14 @@ import useTicTacToe from "../hooks/use-tic-tac-toe.jsx";
 
 function Tictactoe() {
   const [boardSize, setBoardSize] = useState(3); // State to manage the size of the board
-  const { board, handleClick, calculateWinner, getStatusMessage, resetGame } =
-    useTicTacToe(); // Destructure the hook
+  const {
+    board,
+    handleClick,
+    calculateWinner,
+    getStatusMessage,
+    resetGame,
+    winningCells,
+  } = useTicTacToe(); // Destructure the hook
 
   return (
     <>
@@ -21,6 +27,11 @@ function Tictactoe() {
                 key={index} // Unique key for each cell
                 onClick={() => handleClick(index)} // Handle click to mark X or O
                 disabled={b !== null} // Disable if the cell is already marked
+                style={{
+                  backgroundColor: winningCells.includes(index)
+                    ? "lightgreen"
+                    : "",
+                }}
               >
                 {b} {/* Display the content of the cell */}
               </button>
@@ -34,7 +45,7 @@ function Tictactoe() {
         </button>
       </div>
 
-      {/* Uncomment the line below to add a button for instructions or help */}
+      {/* Uncomment the line below to add a button for instructions*/}
       {/* <button className="learnMore">?</button> */}
     </>
   );
