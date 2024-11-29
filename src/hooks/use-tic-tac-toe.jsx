@@ -7,6 +7,7 @@ const useTicTacToe = () => {
   const [board, setboard] = useState(initialBoard()); // State for the game board
   const [isXNext, setIsXNext] = useState(true); // State to track whose turn it is
   const [winningCells, setWinningCells] = useState([]);
+  const [isClicked, setIsClicked] = useState(false);
 
   // Winning patterns for the game
   const WINNING_PATTERNS = [
@@ -37,6 +38,7 @@ const useTicTacToe = () => {
 
   // Function to handle cell clicks
   const handleClick = (index) => {
+    setIsClicked(true);
     const { winner } = calculateWinner(board);
     if (winner || board[index]) return; // Ignore if there's a winner or the cell is occupied
 
@@ -88,6 +90,7 @@ const useTicTacToe = () => {
     getStatusMessage,
     resetGame,
     winningCells,
+    isClicked,
   };
 };
 

@@ -10,7 +10,7 @@ function Tictactoe() {
     getStatusMessage,
     resetGame,
     winningCells,
-  } = useTicTacToe(); // Destructure the hook
+  } = useTicTacToe(); // destructure hook
 
   return (
     <>
@@ -30,6 +30,13 @@ function Tictactoe() {
                 style={{
                   backgroundColor: winningCells.includes(index)
                     ? "lightgreen"
+                    : b !== null
+                    ? "transparent"
+                    : "",
+                  color: winningCells.includes(index)
+                    ? "black"
+                    : b !== null
+                    ? "transparent"
                     : "",
                 }}
               >
