@@ -10,6 +10,7 @@ function Tictactoe() {
     getStatusMessage,
     resetGame,
     winningCells,
+    draw,
   } = useTicTacToe(); // destructure hook
 
   console.log(winningCells);
@@ -37,6 +38,12 @@ function Tictactoe() {
                 backgroundColor = "transparent";
                 color = "transparent";
               }
+            }
+            console.log(draw);
+
+            if (draw) {
+              console.log("kush2");
+              color = "black";
             }
 
             return (

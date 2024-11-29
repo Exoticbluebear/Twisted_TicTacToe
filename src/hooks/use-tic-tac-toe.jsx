@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Function to initialize the game board
 const initialBoard = () => Array(9).fill(null);
@@ -8,6 +8,7 @@ const useTicTacToe = () => {
   const [isXNext, setIsXNext] = useState(true); // State to track whose turn it is
   const [winningCells, setWinningCells] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [draw, setDraw] = useState(false);
 
   // Winning patterns for the game
   const WINNING_PATTERNS = [
@@ -35,6 +36,14 @@ const useTicTacToe = () => {
     }
     return { winner: null, pattern: [] }; // No winner
   };
+
+  //Draw inside getStatusMessage was too much rendering
+  useEffect(() => {
+    const { winner } = calculateWinner(board);
+    if (!winner && !board.includes(null)) {
+      setDraw(true);
+    }
+  }, [board]);
 
   // Function to handle cell clicks
   const handleClick = (index) => {
@@ -81,6 +90,7 @@ const useTicTacToe = () => {
     setboard(initialBoard()); // Reset the board
     setIsXNext(true); // Set X to start again
     setWinningCells([]); // Clear winning cells
+    setDraw(false);
   };
 
   return {
@@ -91,6 +101,7 @@ const useTicTacToe = () => {
     resetGame,
     winningCells,
     isClicked,
+    draw,
   };
 };
 
