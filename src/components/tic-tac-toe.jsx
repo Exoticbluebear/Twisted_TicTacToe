@@ -12,6 +12,8 @@ function Tictactoe() {
     winningCells,
   } = useTicTacToe(); // destructure hook
 
+  console.log(winningCells);
+
   return (
     <>
       <div className="game">
@@ -21,6 +23,22 @@ function Tictactoe() {
         <div className="board">
           {/* Render each cell of the board */}
           {board.map((b, index) => {
+            let backgroundColor = "";
+            let color = "";
+
+            if (winningCells && winningCells.length > 0) {
+              backgroundColor = winningCells.includes(index)
+                ? "lightgreen"
+                : "transparent";
+            } else {
+              console.log("kushan");
+              if (b !== null) {
+                console.log("kush1");
+                backgroundColor = "transparent";
+                color = "transparent";
+              }
+            }
+
             return (
               <button
                 className="cell" // CSS class for styling
@@ -28,16 +46,8 @@ function Tictactoe() {
                 onClick={() => handleClick(index)} // Handle click to mark X or O
                 disabled={b !== null} // Disable if the cell is already marked
                 style={{
-                  backgroundColor: winningCells.includes(index)
-                    ? "lightgreen"
-                    : b !== null
-                    ? "transparent"
-                    : "",
-                  color: winningCells.includes(index)
-                    ? "black"
-                    : b !== null
-                    ? "transparent"
-                    : "",
+                  backgroundColor,
+                  color,
                 }}
               >
                 {b} {/* Display the content of the cell */}
